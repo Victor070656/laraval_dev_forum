@@ -31,9 +31,9 @@
 
         <div class="container px-2 xl:max-w-5xl mx-auto pb-6 pt-24">
 
-            @session('status')
+            {{-- @session('status')
                 <div class="text-teal">{{ $status }}</div>
-            @endsession
+            @endsession --}}
 
             <div class="card shadow-lg px-2 py-3 bg-base-200/50">
                 <div class="bg-base-100 rounded-md p-2 font-black">
