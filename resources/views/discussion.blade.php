@@ -1,64 +1,44 @@
 @extends('layouts.app')
 
 @section('title')
-    Home
+    Discussions
 @endsection
 
 @section('content')
-    <style>
-        @media(prefers-color-scheme: dark) {
-            .bg-dots {
-                background-image: url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.22676 0C1.91374 0 2.45351 0.539773 2.45351 1.22676C2.45351 1.91374 1.91374 2.45351 1.22676 2.45351C0.539773 2.45351 0 1.91374 0 1.22676C0 0.539773 0.539773 0 1.22676 0Z' fill='rgba(200,200,255,0.15)'/%3E%3C/svg%3E");
-            }
-        }
-
-        @media(prefers-color-scheme: light) {
-            .bg-dots {
-                background-image: url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.22676 0C1.91374 0 2.45351 0.539773 2.45351 1.22676C2.45351 1.91374 1.91374 2.45351 1.22676 2.45351C0.539773 2.45351 0 1.91374 0 1.22676C0 0.539773 0.539773 0 1.22676 0Z' fill='rgba(0,0,50,0.10)'/%3E%3C/svg%3E")
-            }
-        }
-    </style>
-    {{-- navbar --}}
     @livewire('navbar-main')
-    {{-- end navbar --}}
-    <div
-        class="relative min-h-screen bg-gray-100 bg-center bg-dots dark:bg-gray-900 selection:bg-indigo-500 selection:text-white">
 
-        <div class="sm:flex sm:justify-center sm:items-center">
-
-
-        </div>
-
-        <div class="container px-2 xl:max-w-5xl mx-auto pb-6 pt-24">
-
-            {{-- @session('status')
-                <div class="text-teal">{{ $status }}</div>
-            @endsession --}}
-
-            <div class="card shadow-lg px-2 py-3 bg-base-200/50">
-                <div class="bg-base-100 rounded-md p-2 font-black">
-                    Discussion Room
-                </div>
-                <div class="card-body">
-                    {{-- single post --}}
-                    <div class="border-b border-gray-200 py-3">
-                        <h1 class="text-2xl font-bold truncate">
-                            Discussion Topic
-                        </h1>
-                        <p class="truncate">Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis quae minima et
-                            exercitationem
-                            aspernatur non dolorum, voluptates amet incidunt aperiam porro nostrum doloribus temporibus
-                            doloremque perferendis nulla quasi voluptatem tempora.</p>
-                        <div class="py-2 flex text-xs space-x-3 font-semibold text-rose-600">
-                            <span class="">user name</span>
-                            <span class="">01-06-2025</span>
-                            <span class="">0 Comment(s)</span>
-                        </div>
-                    </div>
-                    {{-- end single post --}}
-                </div>
+    <div class="py-24">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="px-4 sm:px-0">
+                <h1 class="text-2xl font-semibold text-gray-900 dark:text-white">Discussions</h1>
+                <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                    Join the conversation and share your thoughts with the community.
+                </p>
             </div>
-        </div>
 
+            <div class="mt-6 flex items-center justify-between">
+                <div class="flex-1 min-w-0">
+                    <div class="flex items-center text-sm text-gray-500 dark:text-gray-400">
+                        <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400 dark:text-gray-500"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd"
+                                d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        <span>Join the discussion</span>
+                    </div>
+                </div>
+                @auth
+                    <div class="ml-6 flex-shrink-0">
+                        <a href="{{ route('discussions.create') }}" wire:navigate
+                            class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            Start Discussion
+                        </a>
+                    </div>
+                @endauth
+            </div>
+
+            @livewire('discussion-list')
+        </div>
     </div>
 @endsection

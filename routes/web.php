@@ -23,23 +23,23 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::view('/', 'welcome')->name('home');
-Route::get("/discussions", [HomeController:: class, "posts"])->name("discussions");
-Route::get("/post-discussion", [HomeController::class, "postDiscussion"])->name("discussions.create");
 
+// Discussion Routes
+Route::get('/discussions', [HomeController::class, 'posts'])->name('discussions');
+Route::get('/discussions/create', [HomeController::class, 'postDiscussion'])->name('discussions.create')->middleware('auth');
+Route::get('/discussions/{discussion}', [HomeController::class, 'show'])->name('discussions.show');
+
+// Authentication Routes
 Route::middleware('guest')->group(function () {
-    Route::get('login', Login::class)
-        ->name('login');
-
-    Route::get('register', Register::class)
-        ->name('register');
+    Route::get('login', Login::class)->name('login');
+    Route::get('register', Register::class)->name('register');
 });
 
-Route::get('password/reset', Email::class)
-    ->name('password.request');
+// Password Reset Routes
+Route::get('password/reset', Email::class)->name('password.request');
+Route::get('password/reset/{token}', Reset::class)->name('password.reset');
 
-Route::get('password/reset/{token}', Reset::class)
-    ->name('password.reset');
-
+// Email Verification Routes
 Route::middleware('auth')->group(function () {
     Route::get('email/verify', Verify::class)
         ->middleware('throttle:6,1')
@@ -47,9 +47,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('password/confirm', Confirm::class)
         ->name('password.confirm');
-});
 
-Route::middleware('auth')->group(function () {
     Route::get('email/verify/{id}/{hash}', EmailVerificationController::class)
         ->middleware('signed')
         ->name('verification.verify');

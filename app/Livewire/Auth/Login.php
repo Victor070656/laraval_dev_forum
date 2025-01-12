@@ -27,7 +27,6 @@ class Login extends Component
 
         if (!Auth::attempt(['email' => $this->email, 'password' => $this->password], $this->remember)) {
             $this->addError('email', trans('auth.failed'));
-
             return;
         }
 
@@ -36,6 +35,7 @@ class Login extends Component
 
     public function render()
     {
-        return view('livewire.auth.login')->extends('layouts.auth');
+        return view('livewire.auth.login')
+            ->layout('layouts.auth');
     }
 }

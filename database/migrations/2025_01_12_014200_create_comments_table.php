@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('comments', function (Blueprint $table) {
-            $table->uuid("id")->primary();
-            $table->uuid('discussion_id'); // UUID to match discussions.id
-            $table->foreign('discussion_id')->references('id')->on('discussions')->onDelete('cascade');
-            $table->longText("body");
+            $table->uuid('id')->primary();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignUuid('discussion_id')->constrained()->cascadeOnDelete();
+            $table->text('body');
             $table->timestamps();
         });
     }
